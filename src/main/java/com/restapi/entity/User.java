@@ -20,6 +20,19 @@ public class User {
 	private String ipAddress;
 	private String address;
 
+	public User() {
+		
+	}
+	public User(String firstName, String lastName, String email, String gender, String ipAddress, String address) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.gender = gender;
+		this.ipAddress = ipAddress;
+		this.address = address;
+	}
+
 	public Long getId() {
 		return id;
 	}
