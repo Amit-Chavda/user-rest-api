@@ -10,8 +10,8 @@ import javax.persistence.Table;
 @Table
 public class User {
 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String firstName;
 	private String lastName;
@@ -19,10 +19,12 @@ public class User {
 	private String gender;
 	private String ipAddress;
 	private String address;
+	private String searchSimilar;
 
 	public User() {
-		
+
 	}
+
 	public User(String firstName, String lastName, String email, String gender, String ipAddress, String address) {
 		super();
 		this.firstName = firstName;
@@ -93,6 +95,14 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", gender=" + gender + ", ipAddress=" + ipAddress + ", address=" + address + "]";
+	}
+
+	public String getSearchSimilar() {
+		return searchSimilar;
+	}
+
+	public void setSearchSimilar(String searchSimilar) {
+		this.searchSimilar = searchSimilar;
 	}
 
 }

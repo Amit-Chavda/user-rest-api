@@ -44,4 +44,14 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 
+	@Override
+	public void removeById(Long id) {
+		userRepository.deleteById(id);
+	}
+
+	@Override
+	public List<User> search(String keyword) {
+		return userRepository.findAllByFirstNameAndLastNameContaining(keyword,keyword);
+	}
+
 }

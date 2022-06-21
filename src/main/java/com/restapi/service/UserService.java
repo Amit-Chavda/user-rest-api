@@ -16,5 +16,9 @@ public interface UserService {
 
 	User save(User user);
 
-	public boolean existsByEmail(String email);
+	boolean existsByEmail(String email);
+
+	void removeById(Long id);
+
+	List<User> search(String keyword);
 }
