@@ -17,6 +17,6 @@ Restful User API
 
 ## Tech Stack
 
-**Client:** Spring boot
+**Client:** Spring boot, Mockito
 
 **Server:** Apache Tomcat, MySQL
