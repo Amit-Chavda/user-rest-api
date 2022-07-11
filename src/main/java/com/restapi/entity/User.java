@@ -19,21 +19,6 @@ public class User {
 	private String gender;
 	private String ipAddress;
 	private String address;
-	private String searchSimilar;
-
-	public User() {
-
-	}
-
-	public User(String firstName, String lastName, String email, String gender, String ipAddress, String address) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.gender = gender;
-		this.ipAddress = ipAddress;
-		this.address = address;
-	}
 
 	public Long getId() {
 		return id;
@@ -95,14 +80,4 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", gender=" + gender + ", ipAddress=" + ipAddress + ", address=" + address + "]";
-	}
-
-	public String getSearchSimilar() {
-		return searchSimilar;
-	}
-
-	public void setSearchSimilar(String searchSimilar) {
-		this.searchSimilar = searchSimilar;
-	}
-
-}
+	}}

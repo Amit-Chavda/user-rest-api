@@ -1,22 +1,49 @@
 package com.restapi.service;
 
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-
 import com.restapi.entity.User;
+import com.restapi.repository.UserRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-public interface UserService {
+import java.util.List;
+import java.util.Optional;
 
-	User findById(Long id);
+@Service
+public class UserService {
 
-	void saveAll(List<User> users);
+    private UserRepository userRepository;
 
-	List<User> findAll();
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-	User save(User user);
+    public User findById(Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            return optionalUser.get();
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with id " + id + "not found");
+    }
 
-	boolean existsByEmail(String email);
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
 
-	void removeById(Long id);
+    public void saveAll(List<User> users) {
+        userRepository.saveAll(users);
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    public void removeById(Long id) {
+        userRepository.deleteById(id);
+    }
+
 }
