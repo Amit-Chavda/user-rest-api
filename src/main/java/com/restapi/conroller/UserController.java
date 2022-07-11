@@ -26,26 +26,24 @@ public class UserController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<User> removeUserById(@PathVariable Long id) {
-		//User user = userService.findById(id);
-		return new ResponseEntity<User>(new User(), HttpStatus.OK);
+	public String removeUserById(@PathVariable Long id) {
+		return userService.removeById(id);
 	}
 
 	@PostMapping("/SaveAll")
-	public ResponseEntity<String> saveAll(@RequestBody List<User> users) {
-		userService.saveAll(users);
-		return new ResponseEntity<String>("Success", HttpStatus.OK);
+	public String saveAll(@RequestBody List<UserDto> userDtos) {
+		userService.saveAll(userDtos);
+		return "success";
 	}
 
 	@RequestMapping(path = "/Save", method = RequestMethod.POST)
-	public ResponseEntity<User> save(@RequestBody User user) {
-		User output = userService.save(user);
-		return new ResponseEntity<User>(output, HttpStatus.OK);
+	public UserDto save(@RequestBody UserDto user) {
+		return  userService.save(user);
 	}
 
 	@GetMapping("/All")
-	public ResponseEntity<List<User>> findAll() {
-		return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+	public List<UserDto> findAll() {
+		return userService.findAll();
 	}
 
 }

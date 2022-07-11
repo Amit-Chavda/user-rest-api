@@ -25,6 +25,12 @@ public class UserRestApiApplication {
 				map().setPhysicalAddress(source.getAddress());
 			}
 		});
+		modelMapper.addMappings(new PropertyMap<UserDto, User>() {
+			protected void configure() {
+				map().setEmail(source.getEmailAddress());
+				map().setAddress(source.getPhysicalAddress());
+			}
+		});
 		return modelMapper;
 	}
 }
