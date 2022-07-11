@@ -1,5 +1,6 @@
 package com.restapi.conroller;
 
+import com.restapi.dto.UserDto;
 import com.restapi.entity.User;
 import com.restapi.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -14,20 +15,20 @@ public class UserController {
 
 	private UserService userService;
 
+
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<User> findUserById(@PathVariable Long id) {
-		User user = userService.findById(id);
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+	public UserDto findUserById(@PathVariable Long id) {
+		return userService.findById(id);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<User> removeUserById(@PathVariable Long id) {
-		User user = userService.findById(id);
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+		//User user = userService.findById(id);
+		return new ResponseEntity<User>(new User(), HttpStatus.OK);
 	}
 
 	@PostMapping("/SaveAll")

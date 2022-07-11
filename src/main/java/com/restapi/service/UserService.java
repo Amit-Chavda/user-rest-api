@@ -1,7 +1,10 @@
 package com.restapi.service;
 
+import com.restapi.dto.UserDto;
 import com.restapi.entity.User;
 import com.restapi.repository.UserRepository;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,17 +16,18 @@ import java.util.Optional;
 public class UserService {
 
     private UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
+    private ModelMapper mapper;
+    public UserService(UserRepository userRepository,ModelMapper mapper) {
         this.userRepository = userRepository;
+        this.mapper=mapper;
     }
 
-    public User findById(Long id) {
+    public UserDto findById(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
-            return optionalUser.get();
+            return mapper.map(optionalUser.get(),UserDto.class);
         }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with id " + id + "not found");
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with id " + id + " not found");
     }
 
     public boolean existsByEmail(String email) {
