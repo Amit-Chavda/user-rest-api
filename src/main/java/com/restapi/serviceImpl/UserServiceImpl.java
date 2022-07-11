@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
 	private UserRepository userRepository;
 
 	public UserServiceImpl(UserRepository userRepository) {
@@ -49,9 +48,5 @@ public class UserServiceImpl implements UserService {
 		userRepository.deleteById(id);
 	}
 
-	@Override
-	public List<User> search(String keyword) {
-		return userRepository.findAllByFirstNameAndLastNameContaining(keyword,keyword);
-	}
 
 }

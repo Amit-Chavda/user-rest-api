@@ -19,6 +19,4 @@ public interface UserService {
 	boolean existsByEmail(String email);
 
 	void removeById(Long id);
-
-	List<User> search(String keyword);
 }
