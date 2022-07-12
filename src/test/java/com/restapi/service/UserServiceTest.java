@@ -4,8 +4,6 @@ import com.restapi.dto.UserDto;
 import com.restapi.entity.User;
 import com.restapi.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,7 +19,6 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -98,14 +95,10 @@ class UserServiceTest {
     }
 
     @Test
-    @Disabled
-    @DisplayName("Disabled due to errors")
     void testFindAll() {
         //Arrange
-        UserDto[] userDtos = new UserDto[]{userDto};
         List<UserDto> expected = Arrays.asList(userDto);
         when(userRepository.findAll()).thenReturn(Arrays.asList(user));
-        when(mapper.map(Arrays.asList(user), UserDto[].class)).thenReturn(userDtos);
         when(userService.findAll()).thenReturn(expected);
 
         //Act

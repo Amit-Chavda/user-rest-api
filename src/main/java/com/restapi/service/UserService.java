@@ -5,10 +5,12 @@ import com.restapi.entity.User;
 import com.restapi.repository.UserRepository;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -37,13 +39,15 @@ public class UserService {
     }
 
     public void saveAll(List<UserDto> userDtos) {
-        List<User> users= Arrays.asList(mapper.map(userDtos,User[].class));
+        List<User> users = Arrays.asList(mapper.map(userDtos, User[].class));
         userRepository.saveAll(users);
     }
 
     public List<UserDto> findAll() {
         List<User> users = userRepository.findAll();
-        return Arrays.asList(mapper.map(users, UserDto[].class));
+        Type type = new TypeToken<List<UserDto>>() {
+        }.getType();
+        return mapper.map(users, type);
     }
 
     public UserDto save(UserDto userDto) {
