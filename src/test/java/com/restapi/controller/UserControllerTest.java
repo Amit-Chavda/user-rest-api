@@ -21,8 +21,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -65,7 +64,24 @@ class UserControllerTest {
     @Test
     void testFindUserById1() throws Exception {
         //Arrange
+        user = new User();
+        user.setEmail("tony1@gmail.com");
+        user.setAddress("someaddress");
+        user.setFirstName("firstname");
+        user.setLastName("lastname");
+        user.setGender("gender");
+        user.setIpAddress("192.168.0.1");
+
         User user1 = userRepository.save(user);
+
+
+        userDto = new UserDto();
+        userDto.setFirstName(user.getFirstName());
+        userDto.setLastName(user.getLastName());
+        userDto.setEmailAddress(user.getEmail());
+        userDto.setPhysicalAddress(user.getAddress());
+        userDto.setIpAddress(user.getIpAddress());
+
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/User/" + user1.getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
@@ -126,8 +142,12 @@ class UserControllerTest {
         //Assert
         resultActions
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].firstName", is("username")));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.size()", greaterThan(0)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].firstName", notNullValue()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].lastName", notNullValue()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].emailAddress", notNullValue()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].physicalAddress", notNullValue()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].ipAddress", notNullValue()));
 
 
     }
